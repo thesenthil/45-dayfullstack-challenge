@@ -1,0 +1,54 @@
+/* Center card in the page */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;   /* full screen height */
+  margin: 0;
+  background-color: #f4f4f9;
+  font-family: Arial, sans-serif;
+}
+
+/* Card design */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 300px;
+}
+
+/* Profile image */
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Makes image circular */
+  margin-bottom: 15px;
+}
+
+/* Name and title */
+.name {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0 5px;
+  color: #333;
+}
+
+.title {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Links */
+.contact {
+  color: #0077b5; /* LinkedIn blue */
+  text-decoration: none;
+  margin: 0 5px;
+  font-size: 14px;
+}
+
+.contact:hover {
+  text-decoration: underline;
+}
