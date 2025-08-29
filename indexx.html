@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grade Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f9;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 300px;
+    }
+    input {
+      padding: 8px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      text-align: center;
+    }
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #0077b5;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005f87;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Grade Calculator</h2>
+    <input type="number" id="scoreInput" placeholder="Enter score (0-100)">
+    <button onclick="showGrade()">Get Grade</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function calculateGrade(score) {
+      if (score >= 90) {
+        return "A";
+      } else if (score >= 80) {
+        return "B";
+      } else if (score >= 70) {
+        return "C";
+      } else if (score >= 60) {
+        return "D";
+      } else {
+        return "F";
+      }
+    }
+
+    function showGrade() {
+      let score = document.getElementById("scoreInput").value;
+      let result = document.getElementById("result");
+
+      if (score === "" || score < 0 || score > 100) {
+        result.innerHTML = "⚠️ Please enter a valid score between 0 and 100.";
+      } else {
+        result.innerHTML = "Your Grade: " + calculateGrade(score);
+      }
+    }
+  </script>
+</body>
+</html>
