@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 4: JS Arrays & Objects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #0077b6;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #e3f2fd;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+    select, input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #0077b6;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #023e8a;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .count {
+      font-weight: bold;
+      color: #0077b6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Day 4: Skills Manager</h1>
+
+    <div class="top-bar">
+      <div>
+        <label for="filter">Filter by Proficiency:</label>
+        <select id="filter">
+          <option value="all">All</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+      <div class="count" id="count">Total Skills: 0</div>
+    </div>
+
+    <ul id="skills-list"></ul>
+
+    <h3>Add a New Skill</h3>
+    <input type="text" id="skillName" placeholder="Skill name (e.g., HTML)">
+    <select id="skillLevel">
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+    </select>
+    <button id="addSkill">Add Skill</button>
+  </div>
+
+  <script>
+    const skills = [
+      { name: "HTML", proficiency: "Intermediate" },
+      { name: "CSS", proficiency: "Beginner" },
+      { name: "JavaScript", proficiency: "Advanced" },
+      { name: "React", proficiency: "Intermediate" }
+    ];
+
+    const skillsList = document.getElementById('skills-list');
+    const filterSelect = document.getElementById('filter');
+    const skillNameInput = document.getElementById('skillName');
+    const skillLevelSelect = document.getElementById('skillLevel');
+    const addSkillButton = document.getElementById('addSkill');
+    const countElement = document.getElementById('count');
+
+    // Function to format skills
+    function formatSkills(array) {
+      return array.map(skill => `${skill.name} (${skill.proficiency})`);
+    }
+
+    // Function to render skills in UI
+    function renderSkills(filter = 'all') {
+      skillsList.innerHTML = '';
+      let filteredSkills = skills;
+
+      if (filter !== 'all') {
+        filteredSkills = skills.filter(skill => skill.proficiency === filter);
+      }
+
+      const formattedSkills = formatSkills(filteredSkills);
+      formattedSkills.forEach(skillText => {
+        const li = document.createElement('li');
+        li.textContent = skillText;
+        skillsList.appendChild(li);
+      });
+
+      countElement.textContent = `Total Skills: ${filteredSkills.length}`;
+      console.log(formattedSkills); // Log in console
+    }
+
+    // Event: Add new skill
+    addSkillButton.addEventListener('click', () => {
+      const name = skillNameInput.value.trim();
+      const level = skillLevelSelect.value;
+
+      if (name) {
+        skills.push({ name, proficiency: level });
+        skillNameInput.value = '';
+        renderSkills(filterSelect.value);
+      } else {
+        alert("Please enter a skill name!");
+      }
+    });
+
+    // Event: Filter skills
+    filterSelect.addEventListener('change', (e) => {
+      renderSkills(e.target.value);
+    });
+
+    // Initial render
+    renderSkills();
+  </script>
+</body>
+</html>
