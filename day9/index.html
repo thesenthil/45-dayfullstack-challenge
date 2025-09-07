@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Data - Senthil</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; }
+    input, textarea { width: 100%; margin: 5px 0; padding: 8px; }
+    button { padding: 10px 20px; margin: 10px 0; }
+    .resume { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>Resume Data - Senthil</h1>
+
+  <h2>Add Resume</h2>
+  <form id="resumeForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <textarea id="skills" placeholder="Skills (comma separated)" required></textarea>
+    <button type="submit">Add Resume</button>
+  </form>
+
+  <h2>All Resumes</h2>
+  <div id="resumes"></div>
+
+  <script>
+    const form = document.getElementById('resumeForm');
+    const resumesDiv = document.getElementById('resumes');
+
+    // Fetch and display all resumes
+    async function loadResumes() {
+      const res = await fetch('http://localhost:3000/resume');
+      const data = await res.json();
+      resumesDiv.innerHTML = '';
+      data.forEach(r => {
+        const div = document.createElement('div');
+        div.className = 'resume';
+        div.innerHTML = `<strong>Name:</strong> ${r.name}<br>
+                         <strong>Email:</strong> ${r.email}<br>
+                         <strong>Skills:</strong> ${r.skills.join(', ')}`;
+        resumesDiv.appendChild(div);
+      });
+    }
+
+    // Handle form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const skills = document.getElementById('skills').value.split(',').map(s => s.trim());
+      
+      await fetch('http://localhost:3000/resume', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, skills })
+      });
+
+      form.reset();
+      loadResumes();
+    });
+
+    // Initial load
+    loadResumes();
+  </script>
+</body>
+</html>
