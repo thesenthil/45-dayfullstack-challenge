@@ -1,0 +1,26 @@
+﻿### Health
+GET http://localhost:3000/
+
+### Create project
+POST http://localhost:3000/api/projects
+Content-Type: application/json
+
+{
+  "name": "Portfolio Website",
+  "description": "Personal site with projects",
+  "status": "In Progress"
+}
+
+### Get all projects
+GET http://localhost:3000/api/projects
+
+### Update project (replace <id> with actual ID)
+PUT http://localhost:3000/api/projects/<id>
+Content-Type: application/json
+
+{
+  "status": "Completed"
+}
+
+### Delete project (replace <id> with actual ID)
+DELETE http://localhost:3000/api/projects/<id>
